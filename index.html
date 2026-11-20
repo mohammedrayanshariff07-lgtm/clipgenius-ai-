@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClipGenius AI — Turn long videos into standout shorts</title>
+<style>
+:root{--bg:#080b12;--panel:#111722;--panel2:#151e2b;--line:#263244;--muted:#8e9bad;--text:#f4f7fb;--purple:#8b5cf6;--cyan:#35d5d0;--green:#40d69a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 80% -10%,#292052 0%,transparent 60%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:26px 22px 60px}.nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:54px}.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;letter-spacing:-.5px}.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--purple),#4f46e5 55%,var(--cyan));display:grid;place-items:center;box-shadow:0 8px 28px #7154dd55}.logo svg{width:19px}.pill{border:1px solid #3a315e;color:#c8baff;background:#211b38;padding:7px 12px;border-radius:99px;font-size:12px;font-weight:700}
+.hero{text-align:center;max-width:760px;margin:0 auto 38px}.eyebrow{color:#b7a6ff;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.hero h1{font-size:clamp(34px,6vw,58px);line-height:1.04;letter-spacing:-2.5px;margin:14px 0}.gradient{background:linear-gradient(90deg,#b9a5ff,#72e5df);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{color:var(--muted);font-size:16px;margin:0 auto;max-width:610px}
+.layout{display:grid;grid-template-columns:1.12fr .88fr;gap:18px;align-items:start}.card{background:linear-gradient(180deg,#141c29,#101722);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 20px 70px #0003}.card h2{font-size:17px;margin:0 0 5px}.sub{color:var(--muted);font-size:13px;margin:0 0 19px}.drop{border:1.5px dashed #48536b;background:#0c121c;border-radius:16px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;cursor:pointer;transition:.2s}.drop:hover,.drop.drag{border-color:var(--cyan);background:#101d27}.upload-icon{width:52px;height:52px;border-radius:16px;background:#282044;color:#c8baff;display:grid;place-items:center;margin-bottom:13px}.drop strong{font-size:15px}.drop span{font-size:12px;color:var(--muted);margin-top:5px}.browse{margin-top:15px;background:#eeeaff;color:#171225;border:0;border-radius:10px;padding:10px 17px;font-weight:800;cursor:pointer}.filemeta{display:none;margin-top:14px;padding:12px;background:#0b111a;border:1px solid var(--line);border-radius:12px;align-items:center;justify-content:space-between;gap:10px}.filemeta strong{font-size:13px;overflow-wrap:anywhere}.filemeta small{color:var(--muted)}
+video{width:100%;max-height:260px;background:#05070b;border-radius:12px;margin-top:14px;display:none}.settings{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:18px}.field{background:#0c121c;border:1px solid var(--line);border-radius:12px;padding:13px}.field label{display:block;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px}.field select{width:100%;background:transparent;color:var(--text);border:0;outline:0;font:inherit;font-weight:650}.field option{background:#111722}.rangehead{display:flex;justify-content:space-between;align-items:center}.rangehead b{color:#c9bcff;font-size:13px}.range{width:100%;accent-color:var(--purple)}
+.checks{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}.check{border:1px solid var(--line);background:#0c121c;border-radius:99px;padding:7px 10px;color:#c6d0dc;font-size:12px}.check i{font-style:normal;color:var(--green);margin-right:5px}
+.action{width:100%;border:0;border-radius:13px;padding:15px 18px;margin-top:19px;color:#fff;font-size:15px;font-weight:850;letter-spacing:.1px;background:linear-gradient(100deg,#7957ed,#5a66df 55%,#268eaa);box-shadow:0 10px 30px #6754db40;cursor:pointer}.action:hover{filter:brightness(1.1)}.action:disabled{opacity:.45;cursor:not-allowed}
+.right .preview{background:#0b111a;border:1px solid var(--line);border-radius:15px;min-height:305px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.phone{width:142px;height:250px;border:5px solid #344052;border-radius:23px;background:linear-gradient(160deg,#292046,#172b3a 65%,#0b1019);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;box-shadow:0 15px 40px #0007}.phone .play{width:42px;height:42px;border-radius:50%;background:#ffffff22;display:grid;place-items:center;margin:0 auto 14px}.phone b{font-size:13px;line-height:1.35}.phone small{display:block;color:#a9b7c8;font-size:10px;margin-top:7px}.tag{position:absolute;top:13px;left:13px;background:#1d2937;border:1px solid #344154;color:#c7d2df;border-radius:99px;padding:5px 9px;font-size:10px;font-weight:800}.right h3{font-size:14px;margin:19px 0 10px}.feature{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid #222d3c}.feature:last-child{border:0}.ficon{width:31px;height:31px;border-radius:10px;background:#24203c;color:#c9baff;display:grid;place-items:center;flex:none}.feature b{font-size:12px;display:block}.feature small{font-size:11px;color:var(--muted)}
+.notice{display:none;margin-top:14px;padding:13px 14px;border:1px solid #6b5430;background:#211b12;color:#f1d7a5;border-radius:12px;font-size:12px}.notice strong{display:block;margin-bottom:4px;color:#ffe5ad}
+.footer{text-align:center;color:#687589;font-size:11px;margin-top:28px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.nav{margin-bottom:38px}.right .preview{min-height:280px}.wrap{padding:20px 15px 40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5v14l11-7z"/></svg></div>ClipGenius <span class="gradient">AI</span></div>
+    <div class="pill">CREATOR STUDIO</div>
+  </nav>
+  <header class="hero">
+    <div class="eyebrow">YOUR AI SHORT-FORM STUDIO</div>
+    <h1>Long videos.<br><span class="gradient">Standout moments.</span></h1>
+    <p>Upload a podcast, stream, interview or video. Find the moments worth sharing and turn them into vertical shorts.</p>
+  </header>
+  <main class="layout">
+    <section class="card">
+      <h2>Start with a video</h2><p class="sub">Upload your source video to prepare a clip generation job.</p>
+      <div class="drop" id="drop">
+        <div class="upload-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-4 4 4-4 4 4"/><path d="M20 16.5v2A1.5 1.5 0 0 1 18.5 20h-13A1.5 1.5 0 0 1 4 18.5v-2"/></svg></div>
+        <strong>Drop your video here</strong><span>MP4, MOV or WEBM · Choose a file from your device</span>
+        <button class="browse" type="button" id="browse">Choose video</button>
+        <input id="file" type="file" accept="video/mp4,video/quicktime,video/webm,video/*" hidden>
+      </div>
+      <div class="filemeta" id="filemeta"><div><strong id="filename"></strong><br><small id="filesize"></small></div><button id="remove" style="background:none;border:0;color:#f4a4a4;cursor:pointer">Remove</button></div>
+      <video id="video" controls playsinline></video>
+      <div class="settings">
+        <div class="field"><label>Clip length</label><div class="rangehead"><span style="font-size:12px;color:#b9c4d2">Each short</span><b><span id="duration">50</span> sec</b></div><input class="range" id="durationRange" type="range" min="40" max="60" value="50"></div>
+        <div class="field"><label>Video format</label><select id="format"><option value="9:16">9:16 · Reels / Shorts</option><option value="16:9">16:9 · YouTube</option><option value="1:1">1:1 · Square</option></select></div>
+        <div class="field"><label>Caption language</label><select id="language"><option>Auto detect</option><option>English</option><option>Hindi</option><option>Hinglish</option><option>Kannada</option><option>Tamil</option><option>Telugu</option></select></div>
+        <div class="field"><label>Clip quantity</label><select id="quantity"><option>Best clips (AI decides)</option><option>3 clips</option><option>5 clips</option><option>10 clips</option></select></div>
+      </div>
+      <div class="checks"><span class="check"><i>✓</i> Smart highlight detection</span><span class="check"><i>✓</i> Animated captions</span><span class="check"><i>✓</i> Speaker reframing</span><span class="check"><i>✓</i> 1080p export target</span></div>
+      <button class="action" id="generate" disabled>✦ Prepare AI clips</button>
+      <div class="notice" id="notice"><strong>AI processing isn't connected yet</strong>This is the working website prototype: video upload, preview and clip settings are ready. To genuinely detect highlights, create captions and export clips, it needs a secure AI/video-processing backend. No fake clips have been generated.</div>
+    </section>
+    <aside class="card right">
+      <h2>Your shorts, reimagined</h2><p class="sub">A preview of the output style</p>
+      <div class="preview"><div class="tag">9:16 SHORT PREVIEW</div><div class="phone"><div><div class="play">▶</div><b>THIS IS THE MOMENT<br><span style="color:#a997ff">EVERYONE REMEMBERS</span></b><small>Animated word-by-word captions</small></div></div></div>
+      <h3>What the AI will look for</h3>
+      <div class="feature"><div class="ficon">✦</div><div><b>Strong opening hooks</b><small>Moments that grab attention in the first few seconds.</small></div></div>
+      <div class="feature"><div class="ficon">◉</div><div><b>Interesting, complete moments</b><small>Useful context, punchlines, reactions and clear endings.</small></div></div>
+      <div class="feature"><div class="ficon">▤</div><div><b>Readable captions</b><small>Timed subtitles with highlighted keywords.</small></div></div>
+      <div class="feature"><div class="ficon">▣</div><div><b>Smart vertical framing</b><small>Keep the active speaker or important action in frame.</small></div></div>
+    </aside>
+  </main>
+  <div class="footer">CLIPGENIUS AI · CREATOR STUDIO · Prototype v1.0</div>
+</div>
+<script>
+const fileInput=document.getElementById('file'),drop=document.getElementById('drop'),video=document.getElementById('video'),meta=document.getElementById('filemeta'),generate=document.getElementById('generate'),notice=document.getElementById('notice');
+let objectUrl=null;
+function setFile(f){if(!f)return;if(!f.type.startsWith('video/')){alert('Please choose a video file.');return;}if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=URL.createObjectURL(f);video.src=objectUrl;video.style.display='block';meta.style.display='flex';document.getElementById('filename').textContent=f.name;document.getElementById('filesize').textContent=(f.size/1024/1024).toFixed(1)+' MB';generate.disabled=false;notice.style.display='none';}
+document.getElementById('browse').onclick=()=>fileInput.click();drop.addEventListener('click',e=>{if(e.target.id!=='browse')fileInput.click()});fileInput.onchange=()=>setFile(fileInput.files[0]);
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('drag')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('drag')}));
+drop.addEventListener('drop',e=>setFile(e.dataTransfer.files[0]));
+document.getElementById('remove').onclick=()=>{fileInput.value='';video.pause();video.removeAttribute('src');video.load();video.style.display='none';meta.style.display='none';generate.disabled=true;notice.style.display='none';if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=null;};
+document.getElementById('durationRange').oninput=e=>document.getElementById('duration').textContent=e.target.value;
+generate.onclick=()=>{notice.style.display='block';notice.scrollIntoView({behavior:'smooth',block:'nearest'});};
+</script>
+</body></html>
