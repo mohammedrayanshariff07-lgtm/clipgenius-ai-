@@ -17,6 +17,15 @@ video{width:100%;max-height:260px;background:#05070b;border-radius:12px;margin-t
 .notice{display:none;margin-top:14px;padding:13px 14px;border:1px solid #6b5430;background:#211b12;color:#f1d7a5;border-radius:12px;font-size:12px}.notice strong{display:block;margin-bottom:4px;color:#ffe5ad}
 .footer{text-align:center;color:#687589;font-size:11px;margin-top:28px}
 @media(max-width:800px){.layout{grid-template-columns:1fr}.nav{margin-bottom:38px}.right .preview{min-height:280px}.wrap{padding:20px 15px 40px}}
+
+.urlbox{margin-bottom:14px;padding:15px;background:#0c121c;border:1px solid var(--line);border-radius:15px}
+.urlbox label{display:block;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px}
+.urlrow{display:flex;gap:8px}
+.urlrow input{min-width:0;flex:1;background:#080d15;border:1px solid #344154;border-radius:10px;color:var(--text);padding:12px;font:inherit;font-size:13px;outline:none}
+.urlrow input:focus{border-color:var(--cyan)}
+.urlrow button{border:0;border-radius:10px;padding:0 14px;background:#e8e3ff;color:#171225;font-weight:800;cursor:pointer}
+.urlhint{color:var(--muted);font-size:11px;margin-top:8px}
+.source-status{display:none;margin-top:9px;color:#9ce6c5;font-size:12px;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -33,6 +42,16 @@ video{width:100%;max-height:260px;background:#05070b;border-radius:12px;margin-t
   <main class="layout">
     <section class="card">
       <h2>Start with a video</h2><p class="sub">Upload your source video to prepare a clip generation job.</p>
+
+      <div class="urlbox">
+        <label for="videoUrl">Or paste a social video link</label>
+        <div class="urlrow">
+          <input id="videoUrl" type="url" placeholder="Paste YouTube, Instagram, TikTok, Facebook or MP4 link">
+          <button type="button" id="useUrl">Use link</button>
+        </div>
+        <div class="urlhint">Paste a public social video URL or direct MP4 link. Actual clip generation depends on source access and platform permissions.</div>
+        <div class="source-status" id="urlStatus"></div>
+      </div>
       <div class="drop" id="drop">
         <div class="upload-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-4 4 4-4 4 4"/><path d="M20 16.5v2A1.5 1.5 0 0 1 18.5 20h-13A1.5 1.5 0 0 1 4 18.5v-2"/></svg></div>
         <strong>Drop your video here</strong><span>MP4, MOV or WEBM · Choose a file from your device</span>
@@ -72,6 +91,20 @@ document.getElementById('browse').onclick=()=>fileInput.click();drop.addEventLis
 ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('drag')}));
 drop.addEventListener('drop',e=>setFile(e.dataTransfer.files[0]));
 document.getElementById('remove').onclick=()=>{fileInput.value='';video.pause();video.removeAttribute('src');video.load();video.style.display='none';meta.style.display='none';generate.disabled=true;notice.style.display='none';if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=null;};
+
+const videoUrlInput=document.getElementById('videoUrl');
+const urlStatus=document.getElementById('urlStatus');
+document.getElementById('useUrl').onclick=()=>{
+  const raw=videoUrlInput.value.trim();
+  if(!raw){urlStatus.style.display='block';urlStatus.style.color='#f0bd8a';urlStatus.textContent='Paste a video link first.';return;}
+  let parsed;
+  try{parsed=new URL(raw);}catch(e){urlStatus.style.display='block';urlStatus.style.color='#f0bd8a';urlStatus.textContent='That link does not look valid. Check it and try again.';return;}
+  if(!['http:','https:'].includes(parsed.protocol)){urlStatus.style.display='block';urlStatus.style.color='#f0bd8a';urlStatus.textContent='Please use an http or https link.';return;}
+  urlStatus.style.display='block';urlStatus.style.color='#9ce6c5';
+  urlStatus.textContent='Link added: '+parsed.hostname+' — AI processing still needs the backend connection.';
+  notice.style.display='block';
+};
+
 document.getElementById('durationRange').oninput=e=>document.getElementById('duration').textContent=e.target.value;
 generate.onclick=()=>{notice.style.display='block';notice.scrollIntoView({behavior:'smooth',block:'nearest'});};
 </script>
